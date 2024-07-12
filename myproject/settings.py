@@ -49,7 +49,7 @@ INSTALLED_APPS = [
 
     # 画像用
     'cloudinary_storage',
-    'cloudinary'
+    'cloudinary',
 
     # 追加app
     'ticket',
@@ -61,7 +61,7 @@ INSTALLED_APPS = [
 
     # bootstrap
     'django_bootstrap5',
-    'bootstrapform',
+    # 'bootstrapform', ⇦これが原因でdistutilsが表示される
 ]
 
 MIDDLEWARE = [

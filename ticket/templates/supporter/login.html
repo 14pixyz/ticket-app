@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block title %}管理者ログイン画面{% endblock %}
+
+{% block content %}
+    <div class="content">
+        <div class="header"><h3>ログイン</h3></div>
+        <form method="POST">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <button type="submit" class="btn btn-primary mt-3">ログイン</button>
+        </form>
+    </div>
+{% endblock %}

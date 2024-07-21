@@ -95,6 +95,9 @@ TEMPLATES = [
     },
 ]
 
+
+AUTH_USER_MODEL = 'ticket.CustomUser'
+
 WSGI_APPLICATION = 'myproject.wsgi.application'
 
 
@@ -168,6 +171,9 @@ else:
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGOUT_REDIRECT_URL = 'ticket:supporter-login'  # ログアウト成功後の遷移先の指定
+
 
 # メール送信設定
 if DEBUG:

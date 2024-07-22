@@ -172,6 +172,7 @@ else:
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
 LOGOUT_REDIRECT_URL = 'ticket:supporter-login'  # ログアウト成功後の遷移先の指定
 
 

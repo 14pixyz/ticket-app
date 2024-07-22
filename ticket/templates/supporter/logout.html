@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block title %}管理者ログイン画面{% endblock %}
+
+{% block content %}
+    <div class="content">
+        <p>ログアウトしました。</p>
+        <a href="{% url 'ticket:supporter-login' %}" id="login" class="btn btn-primary mb-3 mx-3">ログイン画面へ</a>
+    </div>
+
+{% endblock %}

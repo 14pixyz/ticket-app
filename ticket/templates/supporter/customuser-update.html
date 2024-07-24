@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+    <h1>サポーター情報更新</h1>
+    <form method='POST' enctype="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <br>
+        <button name="btn_submit" type="submit" class="btn btn-primary">更新する</button>
+        <a href="javascript:history.back()" class="text-secondary">戻る</a>
+    </form>
+{% endblock %}

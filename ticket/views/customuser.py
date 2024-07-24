@@ -1,9 +1,9 @@
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 from ticket.models import CustomUser
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.shortcuts import redirect
-from ..forms import CustomUserCreateForm
+from ..forms import CustomUserCreateForm, CustomUserUpdateForm
 
 
 class BaseSupporterPermission(UserPassesTestMixin):
@@ -23,10 +23,42 @@ class CustomUserListView(BaseSupporterPermission, ListView):
     paginate_by = 5
 
 
-class CustomUserCreateView(BaseSupporterPermission, CreateView):
+class CustomUserCreateView(UserPassesTestMixin, CreateView):
+    def test_func(self):
+        return self.request.user.is_superuser
+
+    def handle_no_permission(self):
+        return redirect('ticket:supporter-home')
+
+    raise_exception = False
+    login_url = reverse_lazy('ticket:supporter-home')
+
+
     template_name = 'supporter/customuser-create.html'
     model = CustomUser
     form_class = CustomUserCreateForm
 
     def get_success_url(self) -> str:
         return reverse_lazy('ticket:supporter-customuser-list')
+
+
+class CustomUserDeleteView(UserPassesTestMixin, DeleteView):
+    def test_func(self):
+        return self.request.user.is_superuser
+
+    def handle_no_permission(self):
+        return redirect('ticket:supporter-home')
+
+    raise_exception = False
+    login_url = reverse_lazy('ticket:supporter-home')
+
+    template_name = 'supporter/customuser-delete.html'
+    model = CustomUser
+    success_url = reverse_lazy('ticket:supporter-customuser-list')
+
+
+class CustomUserUpdateView(BaseSupporterPermission, UpdateView):
+    template_name = 'supporter/customuser-update.html'
+    model = CustomUser
+    form_class = CustomUserUpdateForm
+    success_url = reverse_lazy('ticket:supporter-customuser-list')

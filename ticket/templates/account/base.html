@@ -1,4 +1,6 @@
 {% load django_bootstrap5 %}
+{% load static %}
+{% load i18n %}
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -7,15 +9,14 @@
     <title>{% block title %}{% endblock %}</title>
     {% bootstrap_css %}
     {% bootstrap_javascript %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
     <div class="container">
         <header class="d-flex flex-wrap justify-content-center py-2 mb-4 border-bottom">
-            <a href="{% url 'ticket:supporter-home' %}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
                 <span class="fs-4">チケマネ</span>
             </a>
-            <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">{{ user.email }}</a>
-            <a href="{% url 'ticket:supporter-logout' %}" id="logout" class="btn btn-outline-primary">ログアウト</a>
         </header>
         {% block content %}{% endblock %}
     </div>

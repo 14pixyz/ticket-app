@@ -1,5 +1,5 @@
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
-from ticket.models import CustomUser
+from ticket.models import Event
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.shortcuts import redirect
@@ -18,3 +18,5 @@ class BaseSupporterPermission(UserPassesTestMixin):
 
 class EventListView(BaseSupporterPermission, ListView):
     template_name = "supporter/event-list.html"
+    model = Event
+    paginate_by = 5

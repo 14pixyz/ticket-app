@@ -33,7 +33,6 @@ class CustomUserCreateView(UserPassesTestMixin, CreateView):
     raise_exception = False
     login_url = reverse_lazy('ticket:supporter-home')
 
-
     template_name = 'supporter/customuser-create.html'
     model = CustomUser
     form_class = CustomUserCreateForm

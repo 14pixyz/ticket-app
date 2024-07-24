@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block title %}イベント削除{% endblock %}
+
+{% block content %}
+    <h1 class="center">イベント削除</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="card" style="width: 30rem;">
+            <div class="card-body">
+                <h3 class="card-title text-danger">削除してよろしいですか？</h3><br>
+                <p class="card-text">イベントタイトル：{{ event.title }}</p>
+                <p class="card-text">会場：{{ event.place }}</p>
+                <p class="card-text">日付：{{ event.date }}</p>
+            </div>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-danger">はい</button>
+        <a href="javascript:history.back()" class="text-secondary">戻る</a>
+    </form>
+{% endblock %}

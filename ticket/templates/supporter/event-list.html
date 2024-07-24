@@ -6,27 +6,31 @@
 {% block content %}
     <h2>イベントリスト</h2>
 
-    <a class="btn btn-primary mt-3 mb-3" href="/" role="button">新規登録</a>
+    <a class="btn btn-primary mt-3 mb-3" href="{% url 'ticket:supporter-event-create' %}" role="button">新規登録</a>
 
 
 
     <table class="table table-striped table-hover table-bordered">
         <thead>
             <tr>
-                <th>id</th>
-                <th>ユーザー名</th>
-                <th>メールアドレス</th>
+                <th>画像</th>
+                <th>イベント名</th>
+                <th>会場</th>
+                <th>日付</th>
                 <th>アクション</th>
             </tr>
         </thead>
-        {% for customuser in customuser_list %}
+        {% for event in event_list %}
         <tr>
-            <td>{{ customuser.id }}</td>
-            <td>{{ customuser.username }}</td>
-            <td>{{ customuser.email }}</td>
+            {% if event.image %}
+                <td><img src="{{ event.image.url }}" style="width:100px; height:auto;"></td>
+            {% endif %}
+            <td>{{ event.title }}</td>
+            <td>{{ event.place }}</td>
+            <td>{{ event.date }}</td>
             <td>
-                <a class="btn btn-outline-secondary" href="{% url 'ticket:supporter-customuser-update' customuser.pk %}" role="button">編集</a>
-                <a class="btn btn-outline-danger" href="{% url 'ticket:supporter-customuser-delete' customuser.pk %}" role="button">削除</a>
+                <a class="btn btn-outline-secondary" href="{% url 'ticket:supporter-event-update' event.pk %}" role="button">編集</a>
+                <a class="btn btn-outline-danger" href="{% url 'ticket:supporter-event-delete' event.pk %}" role="button">削除</a>
             </td>
         </tr>
         {% endfor %}

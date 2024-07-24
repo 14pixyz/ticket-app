@@ -8,7 +8,7 @@ urlpatterns = [
     path('supporter/home/', supporter_feature.HomeView.as_view(), name='supporter-home'),
 
     # イベント管理
-    path('supporter/event-list/', supporter_event_list.EventlistView.as_view(), name='supporter-event-list'),
+    path('supporter/event-list/', supporter_event_list.EventListView.as_view(), name='supporter-event-list'),
 
     # サポーター管理
     path('supporter/customuser-list/', customuser.CustomUserListView.as_view(), name='supporter-customuser-list'),

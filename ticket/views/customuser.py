@@ -5,7 +5,7 @@ from django.contrib.auth.mixins import UserPassesTestMixin
 from django.shortcuts import redirect
 from ..forms import CustomUserCreateForm, CustomUserUpdateForm
 
-
+# パーミッション共通（改善の余地あり 2024-07-24 18:54:45）
 class BaseSupporterPermission(UserPassesTestMixin):
     def test_func(self):
         return self.request.user.is_staff

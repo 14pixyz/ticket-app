@@ -38,5 +38,4 @@ class SupporterLoginView(LoginView):
 class SupporterLogoutView(LogoutView):
     template_name = 'supporter/logout.html'
 
-
 # サポーター登録機能

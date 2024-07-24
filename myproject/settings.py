@@ -172,6 +172,17 @@ else:
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# sitesフレームワーク用のサイトID
+SITE_ID = 1
+
+ACCOUNT_AUTHENTICATION_METHOD = 'email'  # メールアドレス認証に変更する設定
+ACCOUNT_USERNAME_REQUIRED = False  # サインナップ、ログイン時のユーザーネーム認証をキャンセル
+
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'  # サインアップにメールアドレス確認を使用
+ACCOUNT_EMAIL_REQUIRED = True
+
+# LOGIN_REDIRECT_URL = 'ticket:supporter-home'  # ログイン成功後の遷移先の指定
+
 LOGOUT_REDIRECT_URL = 'ticket:supporter-login'  # ログアウト成功後の遷移先の指定
 
 

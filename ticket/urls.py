@@ -14,8 +14,8 @@ urlpatterns = [
     # イベント管理
     path('supporter/event-list/', supporter_event.EventListView.as_view(), name='supporter-event-list'),
     path('supporter/event-create/', supporter_event.EventCreateView.as_view(), name='supporter-event-create'),
-    path('supporter/customuser-delete/<int:pk>/', supporter_event.EventDeleteView.as_view(), name='supporter-event-delete'),
-    path('supporter/customuser-update/<int:pk>/', supporter_event.EventUpdateView.as_view(), name='supporter-event-update'),
+    path('supporter/event-delete/<int:pk>/', supporter_event.EventDeleteView.as_view(), name='supporter-event-delete'),
+    path('supporter/event-update/<int:pk>/', supporter_event.EventUpdateView.as_view(), name='supporter-event-update'),
 
     # サポーター管理
     path('supporter/customuser-list/', supporter_customuser.CustomUserListView.as_view(), name='supporter-customuser-list'),

@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% load django_bootstrap5 %}
 
-{% block title %}サポーター情報更新{% endblock %}
+{% block title %}イベント情報更新{% endblock %}
 
 {% block content %}
-    <h1>サポーター情報更新</h1>
+    <h1>イベント情報更新</h1>
     <form method='POST' enctype="multipart/form-data">
         {% csrf_token %}
         {% bootstrap_form form %}

@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
 {% load django_bootstrap5 %}
+{% load static %}
 
-{% block title %}サポーター情報更新{% endblock %}
+{% block title %}イベント登録{% endblock %}
 
 {% block content %}
-    <h1>サポーター情報更新</h1>
+    <h1>イベント登録</h1>
     <form method='POST' enctype="multipart/form-data">
         {% csrf_token %}
         {% bootstrap_form form %}
         <br>
-        <button name="btn_submit" type="submit" class="btn btn-primary">更新する</button>
+        <button name="btn_submit" type="submit" class="btn btn-primary">登録する</button>
         <a href="javascript:history.back()" class="text-secondary">戻る</a>
     </form>
 {% endblock %}

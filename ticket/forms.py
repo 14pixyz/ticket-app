@@ -1,5 +1,5 @@
 from django import forms
-from .models import CustomUser
+from .models import CustomUser, Event
 from django.shortcuts import redirect
 
 class CustomUserCreateForm(forms.ModelForm):
@@ -37,8 +37,6 @@ class CustomUserCreateForm(forms.ModelForm):
         return user
 
 
-
-# 着手中　2024/07/24
 class CustomUserUpdateForm(forms.ModelForm):
     class Meta:
         model = CustomUser
@@ -46,4 +44,44 @@ class CustomUserUpdateForm(forms.ModelForm):
         labels = {
             'username': 'サポーター名',
             'email': 'メールアドレス',
+        }
+
+
+class EventCreateForm(forms.ModelForm):
+    class Meta:
+        model = Event
+        fields = ["title", "place", "adress", "max_seat", "date", "opening_time", "closing_time", "image", "web_site", "overview", "company"]
+        labels = {
+            'title': 'イベントタイトル',
+            'place': '会場名',
+            'adress': '住所',
+            'max_seat': '座席数',
+            'date': '公演日',
+            'opening_time': '開始時間',
+            'closing_time': '終了時間',
+            'image': '画像',
+            'web_site': 'webサイトURL',
+            'overview': '概要',
+            'image': '画像',
+            'company': '団体情報',
+        }
+
+
+class EventUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Event
+        fields = ["title", "place", "adress", "max_seat", "date", "opening_time", "closing_time", "image", "web_site", "overview", "company"]
+        labels = {
+            'title': 'イベントタイトル',
+            'place': '会場名',
+            'adress': '住所',
+            'max_seat': '座席数',
+            'date': '公演日',
+            'opening_time': '開始時間',
+            'closing_time': '終了時間',
+            'image': '画像',
+            'web_site': 'webサイトURL',
+            'overview': '概要',
+            'image': '画像',
+            'company': '団体情報',
         }

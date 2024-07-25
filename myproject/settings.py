@@ -156,7 +156,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # 画像の設定
 if DEBUG:
     MEDIA_URL = '/media/'
-    MEDIA_ROOT = BASE_DIR / 'media_local' #あとで追加する
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 else:
     # cloudinary
     MEDIA_URL = '/media/'

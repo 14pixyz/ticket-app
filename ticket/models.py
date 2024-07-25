@@ -44,6 +44,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(verbose_name='メールアドレス', unique=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    is_supporter = models.BooleanField(default=False)
     date_joined = models.DateTimeField(default=timezone.now)
 
     objects = CustomUserManager()

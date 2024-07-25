@@ -5,11 +5,7 @@
 
 {% block content %}
     <h2>サポーターリスト</h2>
-
-    {% if user.is_superuser %}
-        <a class="btn btn-primary mt-3 mb-3" href="{% url 'ticket:supporter-customuser-create' %}" role="button">新規登録</a>
-    {% endif %}
-
+    <a class="btn btn-primary mt-3 mb-3" href="{% url 'ticket:supporter-customuser-create' %}" role="button">新規登録</a>
     <table class="table table-striped table-hover table-bordered">
         <thead>
             <tr>

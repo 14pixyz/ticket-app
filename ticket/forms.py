@@ -26,13 +26,13 @@ class CustomUserCreateForm(forms.ModelForm):
     # フォーム保存時の動作
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.is_staff = True  # is_staff を True に設定
+        user.is_supporter = True  # is_supporter を True に設定
         if commit:
             user = CustomUser.objects.create_user(
                 email=self.cleaned_data['email'],
                 password=self.cleaned_data['password'],
                 username=self.cleaned_data['username'],
-                is_staff=True
+                is_supporter=True
             )
         return user
 

@@ -8,7 +8,7 @@ from ..forms import EventCreateForm, EventUpdateForm
 
 class BaseSupporterPermission(UserPassesTestMixin):
     def test_func(self):
-        return self.request.user.is_staff
+        return self.request.user.is_staff or self.request.user.is_supporter
 
     def handle_no_permission(self):
         return redirect('ticket:supporter-login')
@@ -25,7 +25,7 @@ class EventListView(BaseSupporterPermission, ListView):
 
 class EventCreateView(UserPassesTestMixin, CreateView):
     def test_func(self):
-        return self.request.user.is_superuser
+        return self.request.user.is_staff
 
     def handle_no_permission(self):
         return redirect('ticket:supporter-home')
@@ -43,7 +43,7 @@ class EventCreateView(UserPassesTestMixin, CreateView):
 
 class EventDeleteView(UserPassesTestMixin, DeleteView):
     def test_func(self):
-        return self.request.user.is_superuser
+        return self.request.user.is_staff
 
     def handle_no_permission(self):
         return redirect('ticket:supporter-home')

@@ -5,8 +5,11 @@
 
 {% block content %}
     <h2>イベントリスト</h2>
-    <a class="btn btn-primary mt-3 mb-3" href="{% url 'ticket:supporter-event-create' %}" role="button">新規登録</a>
-    <table class="table table-striped table-hover table-bordered">
+
+    {% if user.is_staff %}
+        <a class="btn btn-primary mt-3 mb-3" href="{% url 'ticket:supporter-event-create' %}" role="button">新規登録</a>
+    {% endif %}
+        <table class="table table-striped table-hover table-bordered">
         <thead>
             <tr>
                 <th>画像</th>
@@ -26,7 +29,9 @@
             <td>{{ event.date }}</td>
             <td>
                 <a class="btn btn-outline-secondary" href="{% url 'ticket:supporter-event-update' event.pk %}" role="button">編集</a>
-                <a class="btn btn-outline-danger" href="{% url 'ticket:supporter-event-delete' event.pk %}" role="button">削除</a>
+                {% if user.is_staff %}
+                    <a class="btn btn-outline-danger" href="{% url 'ticket:supporter-event-delete' event.pk %}" role="button">削除</a>
+                {% endif %}
             </td>
         </tr>
         {% endfor %}

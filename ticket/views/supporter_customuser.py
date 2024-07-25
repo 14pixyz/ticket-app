@@ -5,16 +5,15 @@ from django.contrib.auth.mixins import UserPassesTestMixin
 from django.shortcuts import redirect
 from ..forms import CustomUserCreateForm, CustomUserUpdateForm
 
-# パーミッション共通（改善の余地あり 2024-07-24 18:54:45）
+# パーミッション
 class BaseSupporterPermission(UserPassesTestMixin):
     def test_func(self):
         return self.request.user.is_staff
-
     def handle_no_permission(self):
-        return redirect('ticket:supporter-login')
+        return redirect('ticket:supporter-home')
 
     raise_exception = False
-    login_url = reverse_lazy('ticket:supporter-login')
+    login_url = reverse_lazy('ticket:supporter-home')
 
 
 class CustomUserListView(BaseSupporterPermission, ListView):
@@ -23,16 +22,7 @@ class CustomUserListView(BaseSupporterPermission, ListView):
     paginate_by = 5
 
 
-class CustomUserCreateView(UserPassesTestMixin, CreateView):
-    def test_func(self):
-        return self.request.user.is_superuser
-
-    def handle_no_permission(self):
-        return redirect('ticket:supporter-home')
-
-    raise_exception = False
-    login_url = reverse_lazy('ticket:supporter-home')
-
+class CustomUserCreateView(BaseSupporterPermission, CreateView):
     template_name = 'supporter/customuser-create.html'
     model = CustomUser
     form_class = CustomUserCreateForm
@@ -41,16 +31,7 @@ class CustomUserCreateView(UserPassesTestMixin, CreateView):
         return reverse_lazy('ticket:supporter-customuser-list')
 
 
-class CustomUserDeleteView(UserPassesTestMixin, DeleteView):
-    def test_func(self):
-        return self.request.user.is_superuser
-
-    def handle_no_permission(self):
-        return redirect('ticket:supporter-home')
-
-    raise_exception = False
-    login_url = reverse_lazy('ticket:supporter-home')
-
+class CustomUserDeleteView(BaseSupporterPermission, DeleteView):
     template_name = 'supporter/customuser-delete.html'
     model = CustomUser
     success_url = reverse_lazy('ticket:supporter-customuser-list')

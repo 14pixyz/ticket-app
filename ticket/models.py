@@ -9,7 +9,6 @@ class Company(models.Model):
     name = models.CharField(max_length=150)
     adress = models.CharField(max_length=150)
     tel = models.CharField(max_length=15)
-    email = models.EmailField(verbose_name='メールアドレス', unique=True)
     create_datetime = models.DateTimeField(auto_now_add=True)
     update_datetime = models.DateTimeField(auto_now=True)
 
@@ -46,6 +45,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_supporter = models.BooleanField(default=False)
     date_joined = models.DateTimeField(default=timezone.now)
+    company =  models.ForeignKey(Company, on_delete=models.PROTECT)
 
     objects = CustomUserManager()
 
@@ -68,4 +68,4 @@ class Event(models.Model):
     update_datetime = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
     overview = models.TextField(blank=True, null=True) #公演概要
-    company =  models.ForeignKey(Company, on_delete=models.PROTECT, null=True, blank=True)
+    company =  models.ForeignKey(Company, on_delete=models.PROTECT)

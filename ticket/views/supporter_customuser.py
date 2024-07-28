@@ -2,7 +2,7 @@ from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 from ticket.models import CustomUser
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import UserPassesTestMixin
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from ..forms import CustomUserCreateForm, CustomUserUpdateForm
 
 # パーミッション
@@ -26,6 +26,11 @@ class CustomUserCreateView(BaseSupporterPermission, CreateView):
     template_name = 'supporter/customuser-create.html'
     model = CustomUser
     form_class = CustomUserCreateForm
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()  # CreateViewのget_form_kwargsを呼び出す
+        kwargs['request'] = self.request  # リクエストオブジェクトをフォームに渡す
+        return kwargs
 
     def get_success_url(self) -> str:
         return reverse_lazy('ticket:supporter-customuser-list')

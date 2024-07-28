@@ -24,6 +24,7 @@ urlpatterns = [
     path('supporter/customuser-update/<int:pk>/', supporter_customuser.CustomUserUpdateView.as_view(), name='supporter-customuser-update'),
 
     # ログイン・ログアウト
+    path('supporter/signup/',supporter_function.signup,name='supporter-signup'),
     path('supporter/login/',supporter_function.SupporterLoginView.as_view(),name='supporter-login'),
     path('supporter/logout/',supporter_function.SupporterLogoutView.as_view(),name='supporter-logout'),
 ]

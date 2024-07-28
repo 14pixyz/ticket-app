@@ -3,7 +3,7 @@ from django.views.generic import TemplateView
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import UserPassesTestMixin
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.core.exceptions import ValidationError
 from ..forms import SignUpForm
 
@@ -11,7 +11,10 @@ from ..forms import SignUpForm
 # パーミッション
 class BaseSupporterPermission(UserPassesTestMixin):
     def test_func(self):
-        return self.request.user.is_staff or self.request.user.is_supporter
+        user = self.request.user
+        if user.is_authenticated:
+            return user.is_staff or user.is_supporter
+        return False
 
     def handle_no_permission(self):
         return redirect('ticket:supporter-login')
@@ -42,6 +45,7 @@ class SupporterLogoutView(LogoutView):
     template_name = 'supporter/logout.html'
 
 
+# signup機能
 def signup(request):
     signup_form = SignUpForm(request.POST or None)
     if signup_form.is_valid():

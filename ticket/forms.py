@@ -1,39 +1,34 @@
 from django import forms
-from .models import CustomUser, Event
+from .models import CustomUser, Event, Company
 from django.shortcuts import redirect
+from django.contrib.auth.password_validation import validate_password
 
 class CustomUserCreateForm(forms.ModelForm):
     password = forms.CharField(label='パスワード', widget=forms.PasswordInput)
-    password_confirm = forms.CharField(label='パスワード（確認）', widget=forms.PasswordInput)
 
     class Meta:
         model = CustomUser
-        fields = ["username", "email", "password", "password_confirm"]
+        fields = ["username", "email", "password"]
         labels = {
             'username': 'サポーター名',
             'email': 'メールアドレス',
         }
 
-    # パスワード確認のバリデーション
-    def clean(self):
-        cleaned_data = super().clean()
-        password = cleaned_data.get("password")
-        password_confirm = cleaned_data.get("password_confirm")
-
-        if password and password_confirm and password != password_confirm:
-            raise forms.ValidationError("パスワードが一致しません。")
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+        super().__init__(*args, **kwargs)  # 親クラスの__init__メソッドを呼び出して、フォームの初期化処理を行う
 
     # フォーム保存時の動作
-    def save(self, commit=True):
+    def save(self):
+        company_id = self.request.user.company_id  # リクエストオブジェクトからデータを取得
         user = super().save(commit=False)
-        user.is_supporter = True  # is_supporter を True に設定
-        if commit:
-            user = CustomUser.objects.create_user(
-                email=self.cleaned_data['email'],
-                password=self.cleaned_data['password'],
-                username=self.cleaned_data['username'],
-                is_supporter=True
-            )
+        user = CustomUser.objects.create_user(
+            email=self.cleaned_data['email'],
+            password=self.cleaned_data['password'],
+            username=self.cleaned_data['username'],
+            is_supporter=True,
+            company=Company.objects.get(id=company_id),
+        )
         return user
 
 
@@ -85,3 +80,35 @@ class EventUpdateForm(forms.ModelForm):
             'image': '画像',
             'company': '団体情報',
         }
+
+
+class SignUpForm(forms.ModelForm):
+    password = forms.CharField(label='パスワード', widget=forms.PasswordInput)
+    company_name = forms.CharField(label="会社名", max_length=150)
+    company_address = forms.CharField(label="会社住所", max_length=150)
+    company_tel = forms.CharField(label="会社連絡先", max_length=15)
+
+    class Meta:
+        model = CustomUser
+        fields = ('username', 'email', 'password')
+        labels = {
+            'username':'ユーザー名',
+            'email':'メールアドレス',
+            'password':'パスワード',
+        }
+
+    def save(self):
+        # company情報をフォーム入力情報で作成する
+        company_name = self.cleaned_data.get('company_name')
+        company_address = self.cleaned_data.get('company_address')
+        company_tel = self.cleaned_data.get('company_tel')
+        company = Company.objects.create(name=company_name, adress=company_address, tel=company_tel)
+
+        # 作成した情報からcompany_idを取得して、userデータに保存する
+        user = super().save(commit=False)
+        user.company = company
+        user.is_staff = True
+        user.set_password(self.cleaned_data.get('password'))
+        user.save()
+        return user
+

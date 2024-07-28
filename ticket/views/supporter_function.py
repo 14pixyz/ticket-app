@@ -3,6 +3,9 @@ from django.views.generic import TemplateView
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.shortcuts import render, redirect, get_object_or_404
+from django.core.exceptions import ValidationError
+from ..forms import SignUpForm
 
 
 # パーミッション
@@ -37,3 +40,16 @@ class SupporterLoginView(LoginView):
 # ログアウト機能
 class SupporterLogoutView(LogoutView):
     template_name = 'supporter/logout.html'
+
+
+def signup(request):
+    signup_form = SignUpForm(request.POST or None)
+    if signup_form.is_valid():
+        try:
+            signup_form.save()
+            return redirect('ticket:supporter-home')
+        except ValidationError as e:
+            signup_form.add_error('password', e)
+    return render(request,'supporter/signup.html', context={
+        'form': signup_form,
+    })

@@ -46,6 +46,11 @@ class EventCreateView(UserPassesTestMixin, CreateView):
     model = Event
     form_class = EventCreateForm
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()  # CreateViewのget_form_kwargsを呼び出す
+        kwargs['request'] = self.request  # リクエストオブジェクトをフォームに渡す
+        return kwargs
+
     def get_success_url(self) -> str:
         return reverse_lazy('ticket:supporter-event-list')
 

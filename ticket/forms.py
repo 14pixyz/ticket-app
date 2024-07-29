@@ -1,7 +1,5 @@
 from django import forms
 from .models import CustomUser, Event, Company
-from django.shortcuts import redirect
-from django.contrib.auth.password_validation import validate_password
 
 class CustomUserCreateForm(forms.ModelForm):
     password = forms.CharField(label='パスワード', widget=forms.PasswordInput)

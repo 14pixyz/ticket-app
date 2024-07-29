@@ -45,7 +45,7 @@ class CustomUserUpdateForm(forms.ModelForm):
 class EventCreateForm(forms.ModelForm):
     class Meta:
         model = Event
-        fields = ["title", "place", "adress", "max_seat", "date", "opening_time", "closing_time", "image", "web_site", "overview", "company"]
+        fields = ["title", "place", "adress", "max_seat", "date", "opening_time", "closing_time", "image", "web_site", "overview"]
         labels = {
             'title': 'イベントタイトル',
             'place': '会場名',
@@ -58,14 +58,26 @@ class EventCreateForm(forms.ModelForm):
             'web_site': 'webサイトURL',
             'overview': '概要',
             'image': '画像',
-            'company': '団体情報',
         }
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+        super().__init__(*args, **kwargs)  # 親クラスの__init__メソッドを呼び出して、フォームの初期化処理を行う
+
+    # フォーム保存時の動作
+    def save(self):
+        event = super().save(commit=False)
+        company_id = self.request.user.company_id  # リクエストオブジェクトからデータを取得
+        event.company = Company.objects.get(id=company_id)
+        event.save()
+        return event
+
 
 
 class EventUpdateForm(forms.ModelForm):
     class Meta:
         model = Event
-        fields = ["title", "place", "adress", "max_seat", "date", "opening_time", "closing_time", "image", "web_site", "overview", "company"]
+        fields = ["title", "place", "adress", "max_seat", "date", "opening_time", "closing_time", "image", "web_site", "overview"]
         labels = {
             'title': 'イベントタイトル',
             'place': '会場名',
@@ -78,7 +90,6 @@ class EventUpdateForm(forms.ModelForm):
             'web_site': 'webサイトURL',
             'overview': '概要',
             'image': '画像',
-            'company': '団体情報',
         }
 
 

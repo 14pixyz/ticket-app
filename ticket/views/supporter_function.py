@@ -6,6 +6,7 @@ from django.contrib.auth.mixins import UserPassesTestMixin
 from django.shortcuts import render, redirect
 from django.core.exceptions import ValidationError
 from ..forms import SignUpForm
+from django.contrib.auth import authenticate, login
 
 
 # パーミッション
@@ -50,7 +51,11 @@ def signup(request):
     signup_form = SignUpForm(request.POST or None)
     if signup_form.is_valid():
         try:
-            signup_form.save()
+            user = signup_form.save()
+            # ユーザー認証を行い、ログインさせる
+            authenticated_user = authenticate(username=user.username, password=request.POST['password'])
+            if authenticated_user is not None:
+                login(request, authenticated_user)
             return redirect('ticket:supporter-home')
         except ValidationError as e:
             signup_form.add_error('password', e)

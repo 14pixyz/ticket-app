@@ -6,6 +6,7 @@ from django.shortcuts import redirect
 from ..forms import EventCreateForm, EventUpdateForm
 
 
+
 class BaseSupporterPermission(UserPassesTestMixin):
     def test_func(self):
         return self.request.user.is_staff or self.request.user.is_supporter

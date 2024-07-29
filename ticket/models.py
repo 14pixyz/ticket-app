@@ -62,7 +62,7 @@ class Event(models.Model):
     date = models.DateField(blank=False, null=False)
     opening_time = models.TimeField(blank=False, null=False)
     closing_time = models.TimeField(blank=False, null=False)
-    image = models.ImageField(null=True, blank=True)
+    image = models.ImageField(null=True, default='noImage.png')
     web_site = models.URLField(null=True, blank=True)
     create_datetime = models.DateTimeField(auto_now_add=True)
     update_datetime = models.DateTimeField(auto_now=True)

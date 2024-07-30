@@ -69,3 +69,23 @@ class Event(models.Model):
     is_active = models.BooleanField(default=True)
     overview = models.TextField(blank=True, null=True) #公演概要
     company =  models.ForeignKey(Company, on_delete=models.PROTECT)
+
+
+class Ticket(models.Model):
+    seat_type = (
+        ('free', '自由席'),
+        ('reserved', '指定席'),
+    )
+
+    id = models.AutoField(primary_key=True, unique=True)
+    title = models.CharField(max_length=150)
+    price = models.IntegerField(blank=False, null=False)
+    type = models.CharField(max_length=10, choices=seat_type)
+    area = models.CharField(max_length=150, blank=True, null=True)
+    seat_number = models.CharField(max_length=150, blank=True, null=True)
+    is_active = models.BooleanField(default=True)
+    is_reserved = models.BooleanField(default=False)
+    is_paid = models.BooleanField(default=False)
+    create_datetime = models.DateTimeField(auto_now_add=True)
+    update_datetime = models.DateTimeField(auto_now=True)
+    event = models.ForeignKey(Event, on_delete=models.PROTECT)

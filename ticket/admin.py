@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CustomUser, Event, Company
+from .models import CustomUser, Event, Company, Ticket
 
 class CompanyAdmin(admin.ModelAdmin):
     list_display = ('id','name')
@@ -15,6 +15,12 @@ class EventAdmin(admin.ModelAdmin):
     search_fields = ('title',)
 
 
+class TicketAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'type')
+    search_fields = ('title',)
+
+
 admin.site.register(Company,CompanyAdmin)
 admin.site.register(CustomUser,CustomUserAdmin)
 admin.site.register(Event,EventAdmin)
+admin.site.register(Ticket,TicketAdmin)

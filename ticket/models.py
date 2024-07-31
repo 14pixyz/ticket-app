@@ -89,3 +89,4 @@ class Ticket(models.Model):
     create_datetime = models.DateTimeField(auto_now_add=True)
     update_datetime = models.DateTimeField(auto_now=True)
     event = models.ForeignKey(Event, on_delete=models.PROTECT)
+    company = models.ForeignKey(Company, on_delete=models.PROTECT)

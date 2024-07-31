@@ -1,5 +1,5 @@
 from django import forms
-from .models import CustomUser, Event, Company
+from .models import CustomUser, Event, Company, Ticket
 
 class CustomUserCreateForm(forms.ModelForm):
     password = forms.CharField(label='パスワード', widget=forms.PasswordInput)
@@ -89,6 +89,46 @@ class EventUpdateForm(forms.ModelForm):
             'overview': '概要',
             'image': '画像',
         }
+
+
+class TicketCreateForm(forms.ModelForm):
+    class Meta:
+        model = Ticket
+        fields = ["title", "price", "type", "area", "seat_number"]
+        labels = {
+            'title': 'チケット名',
+            'price': '会場名',
+            'type': '種別',
+            'area': 'エリア',
+            'seat_number': '座席番号',
+        }
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+        super().__init__(*args, **kwargs)  # 親クラスの__init__メソッドを呼び出して、フォームの初期化処理を行う
+
+    # フォーム保存時の動作
+    def save(self):
+        ticket = super().save(commit=False)
+        company_id = self.request.user.company_id  # リクエストオブジェクトからデータを取得
+        ticket.company = Company.objects.get(id=company_id)
+        ticket.save()
+        return ticket
+
+
+
+class TicketUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Ticket
+        fields = ["title", "price", "type", "area", "seat_number"]
+        labels = {
+            'title': 'チケット名',
+            'price': '会場名',
+            'type': '種別',
+            'area': 'エリア',
+            'seat_number': '座席番号',
+        }
+
 
 
 class SignUpForm(forms.ModelForm):

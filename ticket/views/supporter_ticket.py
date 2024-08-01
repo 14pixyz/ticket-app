@@ -33,6 +33,7 @@ class TicketListView(BaseSupporterPermission, ListView):
         context['ticket_list'] = self.get_queryset()  # フィルタリングされたクエリセットを取得
         return context
 
+
 class TicketCreateView(UserPassesTestMixin, CreateView):
     def test_func(self):
         return self.request.user.is_staff

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+    <h1>イベント詳細</h1>
+    <p><span>イベント名 : </span><span>{{ event.title }}</span></p>
+    <p><span>会場 : </span><span>{{ event.prace }}</span></p>
+    <p><span>住所 : </span><span>{{ event.adress }}</span></p>
+    <p><span>日にち : </span><span>{{ event.date }}</span></p>
+    <p><span>座席数 : </span><span>{{ event.max_seat }}</span></p>
+    <p><span>開演時間 : </span><span>{{ event.opening_time }}</span></p>
+    <p><span>終演時間 : </span><span>{{ event.closing_time }}</span></p>
+    <p><span>概要 : </span><span>{{ event.overview }}</span></p>
+    <p><span>webサイト : </span><span>{{ event.web_site }}</span></p>
+
+    <a class="btn btn-primary mt-3 mb-3" href="{% url 'ticket:supporter-ticket-create' %}" role="button">チケット作成</a>
+    <table class="table table-striped table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>チケット名</th>
+                <th>金額</th>
+                <th>種別</th>
+                <th>アクション</th>
+            </tr>
+        </thead>
+        {% for ticket in ticket_list %}
+            <tr>
+                <td>{{ ticket.title }}</td>
+                <td>{{ ticket.price }}</td>
+                <td>{{ ticket.get_type_display }}</td>
+                <td>
+                    <a class="btn btn-outline-secondary" href="{% url 'ticket:supporter-ticket-update' ticket.pk %}" role="button">編集</a>
+                    <a class="btn btn-outline-danger" href="{% url 'ticket:supporter-ticket-delete' ticket.pk %}" role="button">削除</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <a href="javascript:history.back()" class="text-secondary">戻る</a>
+{% endblock %}

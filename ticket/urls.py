@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import supporter_customuser, supporter_event, supporter_function
+from .views import supporter_customuser, supporter_event, supporter_function, supporter_ticket
 
 # 画像用
 from django.conf import settings
@@ -22,6 +22,12 @@ urlpatterns = [
     path('supporter/customuser-create/', supporter_customuser.CustomUserCreateView.as_view(), name='supporter-customuser-create'),
     path('supporter/customuser-delete/<int:pk>/', supporter_customuser.CustomUserDeleteView.as_view(), name='supporter-customuser-delete'),
     path('supporter/customuser-update/<int:pk>/', supporter_customuser.CustomUserUpdateView.as_view(), name='supporter-customuser-update'),
+
+    # チケット管理
+    path('supporter/ticket-list/', supporter_ticket.TicketListView.as_view(), name='supporter-ticket-list'),
+    path('supporter/ticket-create/', supporter_ticket.TicketCreateView.as_view(), name='supporter-ticket-create'),
+    path('supporter/ticket-delete/<int:pk>/', supporter_ticket.TicketDeleteView.as_view(), name='supporter-ticket-delete'),
+    path('supporter/ticket-update/<int:pk>/', supporter_ticket.TicketUpdateView.as_view(), name='supporter-ticket-update'),
 
     # ログイン・ログアウト
     path('supporter/signup/',supporter_function.signup,name='supporter-signup'),

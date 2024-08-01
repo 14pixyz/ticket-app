@@ -16,6 +16,7 @@ urlpatterns = [
     path('supporter/event-create/', supporter_event.EventCreateView.as_view(), name='supporter-event-create'),
     path('supporter/event-delete/<int:pk>/', supporter_event.EventDeleteView.as_view(), name='supporter-event-delete'),
     path('supporter/event-update/<int:pk>/', supporter_event.EventUpdateView.as_view(), name='supporter-event-update'),
+    path('supporter/event-detail/<int:pk>/', supporter_event.EventDetailView.as_view(), name='supporter-event-detail'),
 
     # サポーター管理
     path('supporter/customuser-list/', supporter_customuser.CustomUserListView.as_view(), name='supporter-customuser-list'),

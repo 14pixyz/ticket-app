@@ -97,7 +97,7 @@ class TicketCreateForm(forms.ModelForm):
         fields = ["title", "price", "type", "area", "seat_number"]
         labels = {
             'title': 'チケット名',
-            'price': '会場名',
+            'price': '金額',
             'type': '種別',
             'area': 'エリア',
             'seat_number': '座席番号',

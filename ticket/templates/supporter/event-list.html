@@ -25,6 +25,7 @@
             <td>{{ event.place }}</td>
             <td>{{ event.date }}</td>
             <td>
+                <a class="btn btn-outline-primary" href="{% url 'ticket:supporter-event-detail' event.pk %}" role="button">詳細</a>
                 <a class="btn btn-outline-secondary" href="{% url 'ticket:supporter-event-update' event.pk %}" role="button">編集</a>
                 {% if user.is_staff %}
                     <a class="btn btn-outline-danger" href="{% url 'ticket:supporter-event-delete' event.pk %}" role="button">削除</a>

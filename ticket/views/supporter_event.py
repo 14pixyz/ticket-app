@@ -1,4 +1,4 @@
-from django.views.generic import ListView, CreateView, DeleteView, UpdateView
+from django.views.generic import ListView, CreateView, DeleteView, UpdateView, DetailView
 from ticket.models import Event
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import UserPassesTestMixin
@@ -76,3 +76,8 @@ class EventUpdateView(BaseSupporterPermission, UpdateView):
     model = Event
     form_class = EventUpdateForm
     success_url = reverse_lazy('ticket:supporter-event-list')
+
+
+class EventDetailView(BaseSupporterPermission, DetailView):
+    template_name = 'supporter/event-detail.html'
+    model = Event

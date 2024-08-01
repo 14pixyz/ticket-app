@@ -1,6 +1,6 @@
 <コマンド集>
 python manage.py makemigrations
-python manage.py migrate
+
 python manage.py createsuperuser
 python manage.py runserver
 pip install -r requirements.txt
@@ -21,3 +21,5 @@ git branch -d <ブランチ名>
 <memo>
 compnay.idにて特定のユーザーしかアクセスできないようにする
 event.idにてイベントと紐づけて、イベントで混ざらないように管理する
+
+event画面→チケット画面

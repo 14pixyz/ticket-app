@@ -90,3 +90,25 @@ class Ticket(models.Model):
     update_datetime = models.DateTimeField(auto_now=True)
     event = models.ForeignKey(Event, on_delete=models.PROTECT)
     company = models.ForeignKey(Company, on_delete=models.PROTECT)
+
+
+class Customer(models.Model):
+    id = models.AutoField(primary_key=True, unique=True)
+    username = models.CharField(max_length=150)
+    email = models.EmailField(verbose_name='メールアドレス', unique=True)
+
+
+class Reservation(models.Model):
+    payment_choice = (
+        ('bank', '銀行振込'),
+        ('credit', 'クレジットカード決済'),
+    )
+
+    id = models.AutoField(primary_key=True, unique=True)
+    ticket = models.ForeignKey(Ticket, on_delete=models.PROTECT)
+    customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
+    people_num = models.IntegerField(blank=False, null=False)
+    payment = models.CharField(max_length=20, choices=payment_choice)
+    comment = models.TextField(blank=True, null=True)
+    create_datetime = models.DateTimeField(auto_now_add=True)
+    url = models.URLField(null=True, blank=True)

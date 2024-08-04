@@ -48,11 +48,6 @@ class TicketCreateView(UserPassesTestMixin, CreateView):
     model = Ticket
     form_class = TicketCreateForm
 
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()  # CreateViewのget_form_kwargsを呼び出す
-        kwargs['request'] = self.request  # リクエストオブジェクトをフォームに渡す
-        return kwargs
-
     def get_success_url(self) -> str:
         event_id = self.request.POST.get('event')
         return reverse_lazy('ticket:supporter-event-detail', kwargs={'pk':int(event_id)})
@@ -77,4 +72,8 @@ class TicketUpdateView(BaseSupporterPermission, UpdateView):
     template_name = 'supporter/ticket-update.html'
     model = Ticket
     form_class = TicketUpdateForm
-    success_url = reverse_lazy('ticket:supporter-ticket-list')
+
+    def get_success_url(self) -> str:
+        event_id = self.request.POST.get('event')
+        print(event_id)
+        return reverse_lazy('ticket:supporter-event-detail', kwargs={'pk':int(event_id)})

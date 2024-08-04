@@ -94,7 +94,7 @@ class EventUpdateForm(forms.ModelForm):
 class TicketCreateForm(forms.ModelForm):
     class Meta:
         model = Ticket
-        fields = ["title", "price", "type", "area", "seat_number"]
+        fields = ["title", "price", "type", "area", "seat_number", "event", "company"]
         labels = {
             'title': 'チケット名',
             'price': '金額',

@@ -8,7 +8,33 @@
     <h1>チケット登録</h1>
     <form method='POST' enctype="multipart/form-data">
         {% csrf_token %}
-        {% bootstrap_form form %}
+        <input type="hidden" name="company" value="{{ user.company_id }}">
+        <input type="hidden" name="event" value="{{ view.kwargs.event_id }}">
+
+        <div class="mb-3">
+            <label class="form-label" for="id_title">チケット名</label>
+            <input type="text" name="title" maxlength="150" class="form-control" placeholder="チケット名" required="" id="id_title">
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="id_price">金額</label>
+            <input type="number" name="price" class="form-control" placeholder="金額" required="" id="id_price">
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="id_type">種別</label>
+            <select name="type" class="form-select" required="" id="id_type">
+                <option value="" selected="">---------</option>
+                <option value="free">自由席</option>
+                <option value="reserved">指定席</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="id_area">エリア</label>
+            <input type="text" name="area" maxlength="150" class="form-control" placeholder="エリア" id="id_area">
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="id_seat_number">座席番号</label>
+            <input type="text" name="seat_number" maxlength="150" class="form-control" placeholder="座席番号" id="id_seat_number">
+        </div>
         <br>
         <button name="btn_submit" type="submit" class="btn btn-primary">登録する</button>
         <a href="javascript:history.back()" class="text-secondary">戻る</a>

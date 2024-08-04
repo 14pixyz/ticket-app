@@ -22,4 +22,4 @@ git branch -d <ブランチ名>
 compnay.idにて特定のユーザーしかアクセスできないようにする
 event.idにてイベントと紐づけて、イベントで混ざらないように管理する
 
-event画面→チケット画面
+event画面でevent.idを取得する → 値をforms.pyへ渡す　→ チケット作成画面でevent.idを保存する

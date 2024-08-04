@@ -54,7 +54,8 @@ class TicketCreateView(UserPassesTestMixin, CreateView):
         return kwargs
 
     def get_success_url(self) -> str:
-        return reverse_lazy('ticket:supporter-ticket-list')
+        event_id = self.request.POST.get('event')
+        return reverse_lazy('ticket:supporter-event-detail', kwargs={'pk':int(event_id)})
 
 
 class TicketDeleteView(UserPassesTestMixin, DeleteView):

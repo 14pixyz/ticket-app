@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import supporter_customuser, supporter_event, supporter_function, supporter_ticket
+from .views import supporter_customuser, supporter_event, supporter_function, supporter_ticket, customer_event
 
 # 画像用
 from django.conf import settings
@@ -9,6 +9,10 @@ from django.conf.urls.static import static
 app_name = 'ticket'
 
 urlpatterns = [
+    # カスタマーホーム
+    path('', customer_event.EventListView.as_view(), name='customer-event-list'),
+
+    # サポーターホーム
     path('supporter/home/', supporter_function.HomeView.as_view(), name='supporter-home'),
 
     # イベント管理

@@ -26,7 +26,9 @@ urlpatterns = [
 
     # チケット管理
     path('supporter/ticket-list/', supporter_ticket.TicketListView.as_view(), name='supporter-ticket-list'),
-    path('supporter/ticket-create/', supporter_ticket.TicketCreateView.as_view(), name='supporter-ticket-create'),
+
+    path('supporter/ticket-create/<int:event_id>', supporter_ticket.TicketCreateView.as_view(), name='supporter-ticket-create'),
+
     path('supporter/ticket-delete/<int:pk>/', supporter_ticket.TicketDeleteView.as_view(), name='supporter-ticket-delete'),
     path('supporter/ticket-update/<int:pk>/', supporter_ticket.TicketUpdateView.as_view(), name='supporter-ticket-update'),
 

@@ -13,7 +13,8 @@
     <p><span>概要 : </span><span>{{ event.overview }}</span></p>
     <p><span>webサイト : </span><span>{{ event.web_site }}</span></p>
 
-    <a class="btn btn-primary mt-3 mb-3" href="{% url 'ticket:supporter-ticket-create' %}" role="button">チケット作成</a>
+    <a class="btn btn-primary mt-3 mb-3" href="{% url 'ticket:supporter-ticket-create' event.id %}" role="button">チケット作成</a>
+
     <table class="table table-striped table-hover table-bordered">
         <thead>
             <tr>

@@ -22,9 +22,9 @@
         <div class="mb-3">
             <label class="form-label" for="id_type">種別</label>
             <select name="type" class="form-select" required="" id="id_type">
-              <option value="" {% if object.type == "" %}selected{% endif %}>---------</option>
-              <option value="free" {% if object.type == "free" %}selected{% endif %}>自由席</option>
-              <option value="reserved" {% if object.type == "reserved" %}selected{% endif %}>指定席</option>
+                <option value="" {% if object.type == "" %}selected{% endif %}>---------</option>
+                <option value="free" {% if object.type == "free" %}selected{% endif %}>自由席</option>
+                <option value="reserved" {% if object.type == "reserved" %}selected{% endif %}>指定席</option>
             </select>
         </div>
         <div class="mb-3">

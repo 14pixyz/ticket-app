@@ -31,7 +31,7 @@
                 <td>{{ ticket.get_type_display }}</td>
                 <td>
                     <a class="btn btn-outline-secondary" href="{% url 'ticket:supporter-ticket-update' ticket.pk event.id %}" role="button">編集</a>
-                    <a class="btn btn-outline-danger" href="{% url 'ticket:supporter-ticket-delete' ticket.pk %}" role="button">削除</a>
+                    <a class="btn btn-outline-danger" href="{% url 'ticket:supporter-ticket-delete' ticket.pk event.id %}" role="button">削除</a>
                 </td>
             </tr>
         {% endfor %}

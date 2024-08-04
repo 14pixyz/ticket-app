@@ -65,7 +65,10 @@ class TicketDeleteView(UserPassesTestMixin, DeleteView):
 
     template_name = 'supporter/ticket-delete.html'
     model = Ticket
-    success_url = reverse_lazy('ticket:supporter-ticket-list')
+
+    def get_success_url(self) -> str:
+        event_id = self.request.POST.get('event')
+        return reverse_lazy('ticket:supporter-event-detail', kwargs={'pk':int(event_id)})
 
 
 class TicketUpdateView(BaseSupporterPermission, UpdateView):
@@ -75,5 +78,4 @@ class TicketUpdateView(BaseSupporterPermission, UpdateView):
 
     def get_success_url(self) -> str:
         event_id = self.request.POST.get('event')
-        print(event_id)
         return reverse_lazy('ticket:supporter-event-detail', kwargs={'pk':int(event_id)})

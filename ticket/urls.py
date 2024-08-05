@@ -11,6 +11,7 @@ app_name = 'ticket'
 urlpatterns = [
     # カスタマーホーム
     path('', customer_event.EventListView.as_view(), name='customer-event-list'),
+    path('customer/event-detail/<int:pk>/', customer_event.EventDetailView.as_view(), name='customer-event-detail'),
 
     # サポーターホーム
     path('supporter/home/', supporter_function.HomeView.as_view(), name='supporter-home'),

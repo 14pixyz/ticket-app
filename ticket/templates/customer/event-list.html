@@ -9,7 +9,7 @@
     <form method="get">
         <div class="mb-3">
                 <label for="event_title" class="form-label">イベント検索</label>
-                <div class="d-flex flex-row g-3">
+                <div>
                     <input type="text" class="form-control-sm" id="event_title" name="event_title" value="{{ event_title }}">
                     <button type="submit" class="btn btn-primary ms-1">検索</button>
                 </div>
@@ -36,7 +36,7 @@
             <td>{{ event.place }}</td>
             <td>{{ event.date }}</td>
             <td>
-                <a class="btn btn-outline-primary" href="{% url 'ticket:supporter-event-detail' event.pk %}" role="button">詳細</a>
+                <a class="btn btn-outline-primary" href="{% url 'ticket:customer-event-detail' event.pk %}" role="button">詳細</a>
             </td>
         </tr>
         {% endfor %}
@@ -53,5 +53,6 @@
     <a href="?page={{ page_obj.next_page_number }}">次へ</a>
     <a href="?page={{ page_obj.paginator.num_pages }}">最後 &raquo;</a>
     {% endif %}
+    <br>
     <a href="javascript:history.back()" class="text-secondary">戻る</a>
 {% endblock %}

@@ -1,9 +1,7 @@
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView, DetailView
 from ticket.models import Event, Ticket
 from django.urls import reverse_lazy
-from django.contrib.auth.mixins import UserPassesTestMixin
 from django.shortcuts import redirect
-from ..forms import EventCreateForm, EventUpdateForm
 
 
 class EventListView(ListView):
@@ -22,4 +20,14 @@ class EventListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['event_title'] = self.request.GET.get('event_title', '')
+        return context
+
+
+class EventDetailView(DetailView):
+    template_name = 'customer/event-detail.html'
+    model = Event
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['ticket_list'] = Ticket.objects.filter(event__id=self.kwargs['pk'])
         return context

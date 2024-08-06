@@ -7,8 +7,32 @@
 {% block content %}
     <form method='POST' enctype="multipart/form-data">
         {% csrf_token %}
-        {% bootstrap_form form %}
-        <button name="btn_submit" type="submit" class="btn btn-primary">登録する</button>
+        <input type="hidden" name="ticket" value="{{ view.kwargs.ticket_id }}">
+        <div class="mb-3">
+            <label class="form-label" for="id_customer_name">氏名</label>
+            <input type="text" name="customer_name" maxlength="150" class="form-control" placeholder="氏名" required="" id="id_customer_name">
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="id_customer_email">メールアドレス</label>
+            <input type="email" name="customer_email" maxlength="320" class="form-control" placeholder="メールアドレス" required="" id="id_customer_email">
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="id_people_num">人数</label>
+            <input type="number" name="people_num" class="form-control" placeholder="人数" required="" id="id_people_num">
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="id_payment">お支払い方法</label>
+            <select name="payment" class="form-select" required="" id="id_payment">
+                <option value="" selected="">---------</option>
+                <option value="bank">銀行振込</option>
+                <option value="credit">クレジットカード決済</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="id_comment">コメント</label>
+            <textarea name="comment" cols="40" rows="10" class="form-control" placeholder="コメント" id="id_comment"></textarea>
+        </div>
+        <button name="btn_submit" type="submit" class="btn btn-primary">予約する</button>
         <a href="javascript:history.back()" class="text-secondary">戻る</a>
     </form>
 {% endblock %}

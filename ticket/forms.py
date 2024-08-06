@@ -161,3 +161,15 @@ class ReservationCreateForm(forms.ModelForm):
             'payment': 'お支払い方法',
             'comment': 'コメント',
         }
+
+    def save(self):
+        # customer情報をフォーム入力情報で作成する
+        customer_name = self.cleaned_data.get('customer_name')
+        customer_email = self.cleaned_data.get('customer_email')
+        customer = Customer.objects.create(username=customer_name, email=customer_email)
+
+        # 作成した情報からcustomer_idを取得して、reservationモデルに保存する
+        reservation = super().save(commit=False)
+        reservation.customer = customer
+        reservation.save()
+        return reservation

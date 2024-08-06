@@ -1,7 +1,6 @@
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView, DetailView
 from ticket.models import Event, Ticket, Reservation
 from django.urls import reverse_lazy
-from django.contrib.auth.mixins import UserPassesTestMixin
 from django.shortcuts import redirect
 from ..forms import ReservationCreateForm
 

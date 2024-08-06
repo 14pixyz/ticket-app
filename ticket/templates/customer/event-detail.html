@@ -26,6 +26,9 @@
                 <td>{{ ticket.title }}</td>
                 <td>{{ ticket.price }}</td>
                 <td>{{ ticket.get_type_display }}</td>
+                <td>
+                    <a class="btn btn-outline-secondary" href="{% url 'ticket:customer-reservation-form' ticket.id %}" role="button">申込</a>
+                </td>
             </tr>
         {% endfor %}
     </table>

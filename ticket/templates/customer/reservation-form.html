@@ -1,0 +1,14 @@
+{% extends 'base_customer.html' %}
+{% load django_bootstrap5 %}
+{% load static %}
+
+{% block title %}申込フォーム{% endblock %}
+
+{% block content %}
+    <form method='POST' enctype="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <button name="btn_submit" type="submit" class="btn btn-primary">登録する</button>
+        <a href="javascript:history.back()" class="text-secondary">戻る</a>
+    </form>
+{% endblock %}

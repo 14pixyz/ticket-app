@@ -1,5 +1,5 @@
 from django import forms
-from .models import CustomUser, Event, Company, Ticket
+from .models import CustomUser, Event, Company, Ticket, Reservation, Customer
 
 class CustomUserCreateForm(forms.ModelForm):
     password = forms.CharField(label='パスワード', widget=forms.PasswordInput)
@@ -148,3 +148,16 @@ class SignUpForm(forms.ModelForm):
         user.save()
         return user
 
+
+class ReservationCreateForm(forms.ModelForm):
+    customer_name = forms.CharField(label="氏名", max_length=150)
+    customer_email = forms.EmailField(label="メールアドレス")
+
+    class Meta:
+        model = Reservation
+        fields = ["ticket", "customer_name", "customer_email", "people_num", "payment", "comment"]
+        labels = {
+            'people_num': '人数',
+            'payment': 'お支払い方法',
+            'comment': 'コメント',
+        }

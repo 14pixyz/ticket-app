@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import supporter_customuser, supporter_event, supporter_function, supporter_ticket, customer_event
+from .views import supporter_customuser, supporter_event, supporter_function, supporter_ticket, customer_event, customer_reservation
 
 # 画像用
 from django.conf import settings
@@ -12,6 +12,7 @@ urlpatterns = [
     # カスタマーホーム
     path('', customer_event.EventListView.as_view(), name='customer-event-list'),
     path('customer/event-detail/<int:pk>/', customer_event.EventDetailView.as_view(), name='customer-event-detail'),
+    path('customer/reservation-form/<int:ticket_id>/', customer_reservation.ReservationCreateView.as_view(), name='customer-reservation-form'),
 
     # サポーターホーム
     path('supporter/home/', supporter_function.HomeView.as_view(), name='supporter-home'),

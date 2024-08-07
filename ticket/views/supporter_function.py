@@ -32,7 +32,6 @@ class HomeView(BaseSupporterPermission, TemplateView):
 # ログイン機能
 class SupporterLoginView(LoginView):
     template_name = 'supporter/login.html'
-    success_url = reverse_lazy('ticket:supporter-login')
 
     def get_success_url(self):
         if self.request.user.is_staff or self.request.user.is_supporter:

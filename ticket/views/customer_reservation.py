@@ -19,11 +19,15 @@ class ReservationListView(ListView):
     model = Reservation
     paginate_by = 5
 
-    # 現在のユーザーの情報を取得
     def get_queryset(self):
-        customer = self.request.user.id
-        return Reservation.objects.filter(customer=customer)
-    # 上記で取得した情報でフィルタリングをかける
+        customer_id = self.kwargs.get('customer_id')  # URLパラメータからcustomer_idを取得
+        reservation_id = self.kwargs.get('reservation_id')  # URLパラメータからreservation_idを取得
+        queryset = Reservation.objects.filter(customer_id=customer_id)
+        # 特定の予約IDでフィルタリング
+        if reservation_id:
+            queryset = queryset.filter(id=reservation_id)
+        return queryset
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['reservation_list'] = self.get_queryset()  # フィルタリングされたクエリセットを取得

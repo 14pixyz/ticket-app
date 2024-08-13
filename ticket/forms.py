@@ -173,3 +173,8 @@ class ReservationCreateForm(forms.ModelForm):
         reservation.customer = customer
         reservation.save()
         return reservation
+
+
+class CustomerQueryForm(forms.Form):
+    username = forms.CharField(max_length=150, required=True, label='申込者氏名')
+    email = forms.EmailField(required=True, label='予約メールアドレス')

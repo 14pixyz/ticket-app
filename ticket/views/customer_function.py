@@ -1,19 +1,26 @@
-from django.contrib.auth.views import LoginView, LogoutView
-from django.views.generic import TemplateView
-from django.urls import reverse_lazy
-from django.shortcuts import redirect
-from django.contrib.auth.mixins import UserPassesTestMixin
-from django.shortcuts import render, redirect
-from django.core.exceptions import ValidationError
-from ..forms import SignUpForm
+from django.shortcuts import render, redirect, get_object_or_404
+from ticket.models import Customer, Reservation
+from ..forms import CustomerQueryForm
 
-# ログイン機能
-class CustomerLoginView(LoginView):
-    template_name = 'customer/login.html'
-    success_url = reverse_lazy('ticket:customer-reservation-list')
-
-    def get_success_url(self):
-        if self.request.user.is_staff or self.request.user.is_supporter:
-            return reverse_lazy('ticket:supporter-home')
-        else:
-            return reverse_lazy('ticket:supporter-login')
+def query_view(request):
+    if request.method == 'POST':
+        form = CustomerQueryForm(request.POST)
+        if form.is_valid():
+            # フォームからデータを取得
+            username = form.cleaned_data['username']
+            email = form.cleaned_data['email']
+            # 顧客データを照会
+            try:
+                customer = Customer.objects.get(username=username, email=email)
+                # その顧客に関連する予約を取得
+                reservation = Reservation.objects.filter(customer=customer).first()
+                if reservation:
+                    # 照会結果ページへリダイレクトし、クエリの結果を渡す
+                    return redirect('ticket:customer-reservation-list', customer_id=customer.id, reservation_id=reservation.id)
+                else:
+                    form.add_error(None, '該当する予約がありません。')
+            except Customer.DoesNotExist:
+                form.add_error(None, 'ユーザー名またはメールアドレスが正しくありません。')
+    else:
+        form = CustomerQueryForm()
+    return render(request, 'customer/query.html', {'form': form})

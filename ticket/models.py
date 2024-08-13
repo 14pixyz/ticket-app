@@ -95,7 +95,7 @@ class Ticket(models.Model):
 class Customer(models.Model):
     id = models.AutoField(primary_key=True, unique=True)
     username = models.CharField(max_length=150)
-    email = models.EmailField(verbose_name='メールアドレス', unique=True)
+    email = models.EmailField(verbose_name='メールアドレス')
 
 
 class Reservation(models.Model):

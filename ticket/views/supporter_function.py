@@ -52,12 +52,12 @@ def signup(request):
         try:
             user = signup_form.save()
             # ユーザー認証を行い、ログインさせる
-            authenticated_user = authenticate(username=user.username, password=request.POST['password'])
+            authenticated_user = authenticate(email=user.email, password=request.POST['password'])  # emailを使用して認証
             if authenticated_user is not None:
                 login(request, authenticated_user)
             return redirect('ticket:supporter-home')
         except ValidationError as e:
             signup_form.add_error('password', e)
-    return render(request,'supporter/signup.html', context={
+    return render(request, 'supporter/signup.html', context={
         'form': signup_form,
     })

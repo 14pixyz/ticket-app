@@ -7,12 +7,21 @@
 
     <!-- 検索 -->
     <form method="get">
-        <div class="mb-3">
-                <label for="event_title" class="form-label">イベント検索</label>
-                <div>
-                    <input type="text" class="form-control-sm" id="event_title" name="event_title" value="{{ event_title }}">
-                    <button type="submit" class="btn btn-primary ms-1">検索</button>
+        <label for="event_title" class="form-label">イベント検索</label>
+        <div class="d-flex justify-content-between">
+            <div class="left-content">
+                <div class="mb-3">
+                    <div>
+                        <input type="text" class="form-control-sm" id="event_title" name="event_title" value="{{ event_title }}">
+                        <button type="submit" class="btn btn-primary ms-1">検索</button>
+                    </div>
                 </div>
+            </div>
+            <div class="right-content">
+                <div class="mb-3">
+                    <a class="btn btn-outline-primary" href="{% url 'ticket:customer-query' %}" role="button">予約確認</a>
+                </div>
+            </div>
         </div>
     </form>
 
